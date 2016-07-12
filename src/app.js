@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import {createStore} from 'redux';
 
 // init state to 0
 var state = 0;
@@ -14,20 +15,21 @@ const counter = (state = 0, action) => {
     }
 };
 
-state = counter(state, {type:'INCREMENT'});
-expect(state).to.equal(1);
+const store = createStore(counter);
 
-state = counter(state, {type:'INCREMENT'});
-expect(state).to.equal(2);
+store.dispatch({type:'INCREMENT'});
+expect(store.getState()).to.equal(1);
 
-state = counter(state, {type:'DECREMENT'});
-expect(state).to.equal(1);
+store.dispatch({type:'INCREMENT'});
+expect(store.getState()).to.equal(2);
 
-state = counter(state, {type:'DECREMENT'});
-expect(state).to.equal(0);
+store.dispatch({type:'DECREMENT'});
+expect(store.getState()).to.equal(1);
 
-state = counter(state, {type:'SOMETHING_ELSE'});
-expect(state).to.equal(0);
+store.dispatch({type:'DECREMENT'});
+expect(store.getState()).to.equal(0);
 
+store.dispatch({type:'SOMETHING_ELSE'});
+expect(store.getState()).to.equal(0);
 
-console.log('all tests are passing');
+console.log('Tests passing');
