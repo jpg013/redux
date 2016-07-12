@@ -1,8 +1,12 @@
 module.exports = {
-  entry: './src/app.js',
+  entry: [
+    'webpack/hot/dev-server',
+    './src/app.js'
+  ],
   output: {
-    path: './dist',
-    filename: 'app.bundle.js'
+    path: __dirname + '/dist',
+    filename: 'app.bundle.js',
+    publicPath: 'dist/'
   },
   module: {
      loaders: [{
@@ -10,5 +14,6 @@ module.exports = {
          exclude: /node_modules/,
          loader: 'babel-loader',
      }]
-  }
+  },
+  watch: true
 };
